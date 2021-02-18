@@ -10,7 +10,14 @@ function findById(id) {
     return db('schemes').where("id", id).first()
 }
 
-//
+function findSteps(id) {
+    return db('steps')
+        .join('schemes', 'schemes.id', 'steps.scheme_id')
+        .where('scheme_id', id)
+        .select('steps.id', 'schemes.scheme_name', 'steps.step_number', 'steps.instructions')
+        .orderBy('steps.step_number')
+};
+//?? not figured
 
 function add(scheme) {
     return db('schemes').insert(scheme)
